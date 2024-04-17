@@ -1,7 +1,7 @@
 name: flutter_validation
 description: "flutter_validation is a package that simplifies and streamlines the validation process in your applications, with it's user-friendly experience."
 version: 0.0.1
-homepage:
+homepage: https://github.com/Arshadshaykh/flutter_validation.git
 
 environment:
   sdk: '>=3.3.2 <4.0.0'

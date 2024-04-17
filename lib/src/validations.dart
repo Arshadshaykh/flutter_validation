@@ -1,6 +1,6 @@
 class Validate {
-  // Required validator: field must not be empty
-  static dynamic requiredValidator({String? errorMessage, String? value}) {
+  static dynamic requiredValidator(
+      {String? errorMessage, String? value, message}) {
     return (value?.isEmpty ?? true)
         ? (errorMessage ?? 'This field is required.')
         : null;
@@ -17,16 +17,16 @@ class Validate {
   }
 
   // TODO: have to implement phone number validator for different countries.
-  static dynamic phoneValidator({String? errorMessage, String? value}) {
+  static String? phoneValidator({String? errorMessage, String? value}) {
     final RegExp _phoneRegex = RegExp(
         r'^\+(?:[0-9]●?){6,14}[0-9]$'); // Example regex for international phone numbers
 
-    if (value == null || !_phoneRegex.hasMatch(value)) {
+    if (value == null || value.length <= 9) {
       return errorMessage ?? 'Please enter a valid phone number.';
     }
     return null;
   }
-// upper case validator: field must contain an uppercase
+
   static dynamic upperCaseValidator({String? errorMessage, String? value}) {
     if (!RegExp(r'[A-Z]').hasMatch((value ?? '').trim())) {
       return (errorMessage ?? 'Password must contain an uppercase letter');
@@ -34,7 +34,6 @@ class Validate {
     return null;
   }
 
-// lower case validator: field must contain a lowercase
   static dynamic lowerCaseValidator({String? errorMessage, String? value}) {
     if (!RegExp(r'[a-z]').hasMatch((value ?? '').trim())) {
       return (errorMessage ?? 'Password must contain a lowercase letter');
@@ -42,7 +41,6 @@ class Validate {
     return null;
   }
 
-// digit case validator: field must contain a digit
   static dynamic digitValidator({String? errorMessage, String? value}) {
     if (!RegExp(r'\d').hasMatch((value ?? '').trim())) {
       return (errorMessage ?? 'Password must contain at least one digit.');
@@ -50,7 +48,6 @@ class Validate {
     return null;
   }
 
-// special character validator: field must contain any one of these !@#$%^&*
   static dynamic specialCharValidator({String? errorMessage, String? value}) {
     if (!RegExp(r'[!@#$%^&*]').hasMatch((value ?? '').trim())) {
       return (errorMessage ??
@@ -59,7 +56,61 @@ class Validate {
     return null;
   }
 
-// Strong Password validator
+  // allow only alphabets and numbers
+  static String? alphanumericValidator({String? errorMessage, String? value}) {
+    if (value == null || value.isEmpty) {
+      return (errorMessage ?? "Please enter a value");
+    } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+      return 'Please enter only letters and numbers';
+    }
+    return null;
+  }
+
+//maximum length validator
+  static String? maxLengthValidator(
+      {int maxLength = 255, String? errorMessage, String? value}) {
+    if (value == null || value.length > maxLength) {
+      return (errorMessage ??
+          'Please enter no more than $maxLength characters');
+    }
+    return null;
+  }
+
+//minimum length validator
+  static String? minLengthValidator(
+      {int minLength = 1, String? errorMessage, String? value}) {
+    if (value == null || value.length < minLength) {
+      return (errorMessage ?? 'Please enter at least $minLength characters');
+    }
+    return null;
+  }
+
+  static String? combinedPhoneEmailValidator({
+    String? errorMessage,
+    String? value,
+  }) {
+    var isEmail = value!.isNotEmpty &&
+            (value.startsWith(RegExp(r'[a-zA-Z]')) ||
+                value.contains(RegExp(r'[a-zA-Z]'))) ||
+        value.contains("@");
+    var isPhone = value.isNotEmpty &&
+        (value.startsWith(RegExp(r'[1-9]')) ||
+            (!value.contains("@") && !value.contains(RegExp(r'[a-zA-Z]'))));
+    final phoneError = phoneValidator(value: value);
+    final emailError = emailValidator(value: value);
+
+    if (value.isEmpty) {
+      return 'Please enter a valid phone number or email address';
+    }
+    if (isEmail && emailError != null) {
+      return 'please enter a valid email address';
+    }
+    if (isPhone && phoneError != null) {
+      return 'please enter a valid phone number';
+    }
+    return null;
+  }
+
   static dynamic strongPassWordValidation(
       {int? minLength = 6,
       String? errorMessage,
@@ -72,7 +123,7 @@ class Validate {
       return 'Password must be at least $minLength characters long';
     }
 
-    // Use separate validators
+    // Use separate validators or combine regular expressions as needed
     final validators = validations == null || validations == []
         ? [
             upperCaseValidator(value: value),
@@ -91,33 +142,6 @@ class Validate {
     return null;
   }
 
-// allow only alphabets and numbers
-  static String? alphanumericValidator({String? errorMessage, String? value}) {
-    if (value == null || value.isEmpty) {
-      return (errorMessage ?? "Please enter a value");
-    } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
-      return 'Please enter only letters and numbers';
-    }
-    return null;
-  }
-
-//maximum length validator 
-static String? maxLengthValidator({int maxLength = 255, String? errorMessage, String? value}) {
-  if (value == null || value.length > maxLength) {
-    return (errorMessage ?? 'Please enter no more than $maxLength characters');
-  }
-  return null;
-}
-
-//minimum length validator 
-  static String? minLengthValidator({int minLength = 1, String? errorMessage, String? value}) {
-  if (value == null || value.length < minLength) {
-    return (errorMessage ?? 'Please enter at least $minLength characters');
-  }
-  return null;
-}
-
-// Validator for using more than one validators
   static dynamic combineValidators({required List validators}) {
     for (final validator in validators) {
       final error = validator;
