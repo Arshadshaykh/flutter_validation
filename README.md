@@ -8,22 +8,39 @@ This package provides a set of commonly used validation functions for form field
 ## Salient Features
 - Required field validation: Checks if a field is empty.
 - Email validation: Validates email addresses based on a regular expression.
-- Phone number validation: Basic phone number validation (can be extended for specific countries).
+- Phone number validation: Basic phone number validation.
 - Alphanumeric validation: Allows only letters and numbers.
 - Password strength validation: Checks for uppercase, lowercase, digits, and special characters (customizable).
 - Minimum and maximum length validation: Enforces minimum and maximum character lengths for a field.
 - Combined phone/email validation: Allows users to enter either a valid phone number or email address.
 - Combine multiple validators: Combine multiple validators for complex validations.
-- 
+  
 ## Installation
 ```yaml
 dependencies:
   flutter_validations: ^0.0.1 (or any compatible version)
 
 ```
+## Available Validators
+- requiredValidator: Checks if a field is empty.
+- emailValidator: Validates email addresses.
+- phoneValidator: Basic phone number validation. (Can be extended)
+- alphanumericValidator: Allows only letters and numbers.
+- upperCaseValidator: Checks for uppercase letters in password.
+- lowerCaseValidator: Checks for lowercase letters in password.
+- digitValidator: Checks for digits in password.
+- specialCharValidator: Checks for special characters in password.
+- maxLengthValidator: Enforces a maximum character length.
+- minLengthValidator: Enforces a minimum character length.
+- combinedPhoneEmailValidator: Allows either phone number or email.
+- combineValidators: Combines multiple validators.
+  
 ## Usage
 
 #### Using Flutter_validation
+Use Validate class with it's functions like this,
+
+
 
 ###### Required validator:
 Using `Validate.requiredValidator();`
@@ -52,6 +69,39 @@ TextFormField(
     errorMessage: 'Please enter valid email address.',
     value: value
     ),
+),
+```
+
+###### Combine validator:
+Using `Validate.combineValidators();`
+
+```dart
+TextFormField(
+  autovalidateMode: AutovalidateMode.onUserInteraction,
+  controller: firstNameController,
+  validator: (value) =>
+    Validate.combineValidators(
+    validators: [
+      Validate.requiredValidator(errorMessage: 'Username must not be empty.', value: value),
+      Validate.minLengthValidator(minLength: 3,errorMessage: 'Please enter a username with at least 3 characters.', value: value),
+      Validate.upperCaseValidator(errorMessage: 'Username must contain atleast 1 uppercase letter',value: value),
+      
+    ]
+    ),
+),
+```
+Note: In combine validators you have to pass value for each validator.
+
+###### Alphanumeric validator:
+Using `Validate.alphanumericValidator();`
+
+```dart
+TextFormField(
+  autovalidateMode: AutovalidateMode.onUserInteraction,
+  controller: firstNameController,
+  validator: (value) =>
+    validator: (value) => Validate.alphanumericValidator(value: value,),
+// this will return "Please enter only letters and numbers" vaildation error
 ),
 ```
 
