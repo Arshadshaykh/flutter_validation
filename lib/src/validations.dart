@@ -8,19 +8,15 @@ class Validate {
 
   // Email validator
   static dynamic emailValidator({String? errorMessage, String? value}) {
-    final RegExp _emailRegex = RegExp(
+    final RegExp emailRegex = RegExp(
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 
-    return value == null || !_emailRegex.hasMatch(value)
+    return value == null || !emailRegex.hasMatch(value)
         ? (errorMessage ?? 'Please enter a valid email address.')
         : null;
   }
 
-  // TODO: have to implement phone number validator for different countries.
   static String? phoneValidator({String? errorMessage, String? value}) {
-    final RegExp _phoneRegex = RegExp(
-        r'^\+(?:[0-9]●?){6,14}[0-9]$'); // Example regex for international phone numbers
-
     if (value == null || value.length <= 9) {
       return errorMessage ?? 'Please enter a valid phone number.';
     }

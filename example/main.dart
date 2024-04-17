@@ -74,7 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: passwordController,
-                      validator: (value) => Validate.requiredValidator(errorMessage: 'This field must not be empty', value: value),
+                      validator: (value) => Validate.requiredValidator(
+                          errorMessage: 'This field must not be empty',
+                          value: value),
                     ),
                     const SizedBox(
                       height: 20,
@@ -109,12 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: combineController,
-                      validator: (value) => Validate.combineValidators(
-                          validators: [
-                            Validate.requiredValidator(value: value),
-                            Validate.emailValidator(value: value),
-                            Validate.strongPassWordValidation(value: value),
-                          ]),
+                      validator: (value) =>
+                          Validate.combineValidators(validators: [
+                        Validate.requiredValidator(value: value),
+                        Validate.emailValidator(value: value),
+                        Validate.strongPassWordValidation(value: value),
+                      ]),
                     ),
                     const SizedBox(
                       height: 20,
@@ -123,7 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: phoneController,
-                      validator: (value) => Validate.phoneValidator(value: value),
+                      validator: (value) =>
+                          Validate.phoneValidator(value: value),
                     ),
                     const SizedBox(
                       height: 20,
@@ -132,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: maxlenController,
-                      validator: (value) => Validate.maxLengthValidator(value: value,maxLength: 16),
+                      validator: (value) => Validate.maxLengthValidator(
+                          value: value, maxLength: 16),
                     ),
                     const SizedBox(
                       height: 20,
@@ -141,7 +145,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: minlenController,
-                      validator: (value) => Validate.combinedPhoneEmailValidator(value: value,),
+                      validator: (value) =>
+                          Validate.combinedPhoneEmailValidator(
+                        value: value,
+                      ),
                     ),
                   ]),
             )),
