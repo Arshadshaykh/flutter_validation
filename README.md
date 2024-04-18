@@ -18,7 +18,7 @@ This package provides a set of commonly used validation functions for form field
 ## Installation
 ```yaml
 dependencies:
-  flutter_validations: ^0.0.1 (or any compatible version)
+  flutter_validations: ^0.0.2
 
 ```
 ## Available Validators
@@ -35,6 +35,13 @@ dependencies:
 - combinedPhoneEmailValidator: Allows either phone number or email.
 - combineValidators: Combines multiple validators.
   
+## Examples
+![](https://github.com/Arshadshaykh/flutter_validation/blob/main/assets/Required%20-%20Made%20with%20Clipchamp.gif)
+![](https://github.com/Arshadshaykh/flutter_validation/blob/main/assets/Strong%20Password%20-%20Made%20with%20Clipchamp.gif)
+![](https://github.com/Arshadshaykh/flutter_validation/blob/main/assets/CombinedRE%20-%20Made%20with%20Clipchamp.gif)
+![](https://github.com/Arshadshaykh/flutter_validation/blob/main/assets/Phone%20-%20Made%20with%20Clipchamp.gif)
+![](https://github.com/Arshadshaykh/flutter_validation/blob/main/assets/Max%20length%2016%20-%20Made%20with%20Clipchamp.gif)
+![](https://github.com/Arshadshaykh/flutter_validation/blob/main/assets/Combined%20Email%20and%20Phone%20-%20Made%20with%20Clipchamp.gif)
 ## Usage
 
 #### Using Flutter_validation
@@ -114,7 +121,7 @@ Feel Free to request any missing features or report issues [here](https://github
 ```
 MIT License
 
-Copyright (c) 2024 Arshad Shaikh
+Copyright (c) 2024 Nichetechsolutions
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
